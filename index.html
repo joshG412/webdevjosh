@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joshua Gregorio – Full-Stack Web Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ===== DESIGN SYSTEM ===== */
+    :root {
+      --color-dark: #0a0a0a;
+      --color-dark-secondary: #1a1a1a;
+      --color-green: #00ff88;
+      --color-green-dark: #00d9a3;
+      --color-text: #e0e0e0;
+      --color-text-muted: #a0a0a0;
+      --font-base: 'Roboto', sans-serif;
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 3rem;
+      --space-xl: 5rem;
+    }
+
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-base);
+      line-height: 1.6;
+      color: var(--color-text);
+      background-color: var(--color-dark);
+      overflow-x: hidden;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      padding: var(--space-md);
+      background: radial-gradient(circle at center, 
+        rgba(0, 255, 136, 0.25) 0%, 
+        rgba(0, 217, 163, 0.15) 20%, 
+        rgba(10, 10, 10, 0.9) 50%, 
+        #0a0a0a 100%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0,255,136,0.4) 0%, transparent 70%);
+      filter: blur(80px);
+      pointer-events: none;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .hero-profile {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 5px solid var(--color-green);
+      box-shadow: 0 0 40px rgba(0, 255, 136, 0.7);
+      margin: 0 auto var(--space-md) auto;
+      object-fit: cover;
+      animation: profileGlow 3s ease-in-out infinite;
+      display: block;
+    }
+
+    @keyframes profileGlow {
+      0%, 100% { box-shadow: 0 0 40px rgba(0, 255, 136, 0.7); }
+      50% { box-shadow: 0 0 60px rgba(0, 255, 136, 1); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: var(--space-sm);
+      text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      color: var(--color-green);
+      margin-bottom: var(--space-md);
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--color-text);
+      margin-bottom: var(--space-md);
+      line-height: 1.8;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: var(--space-md) 0;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--color-green);
+      text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .hero-location {
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      margin-top: 0.5rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: var(--space-md);
+    }
+
+    .btn {
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--color-green);
+      color: var(--color-dark);
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-green-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-green);
+      border: 2px solid var(--color-green);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0, 255, 136, 0.1);
+      transform: translateY(-3px);
+    }
+
+    /* ===== SECTION BASE ===== */
+    section {
+      padding: var(--space-xl) var(--space-md);
+      position: relative;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: var(--space-sm);
+      text-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-lg);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      color: var(--color-green);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ===== ABOUT SECTION ===== */
+    .about {
+      background: var(--color-dark-secondary);
+    }
+
+    .about-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-top: var(--space-md);
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--color-text);
+      margin-bottom: var(--space-sm);
+    }
+
+    .about-highlights {
+      background: rgba(0, 255, 136, 0.05);
+      border: 2px solid rgba(0, 255, 136, 0.3);
+      padding: var(--space-md);
+      border-radius: 12px;
+    }
+
+    .about-highlights h3 {
+      margin-bottom: var(--space-sm);
+      text-align: center;
+    }
+
+    .about-highlights ul {
+      list-style: none;
+    }
+
+    .about-highlights li {
+      color: var(--color-text-muted);
+      padding-left: 1.5rem;
+      position: relative;
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .about-highlights li::before {
+      content: '🎯';
+      position: absolute;
+      left: 0;
+    }
+
+    /* ===== SKILLS SECTION ===== */
+    .skills {
+      background: radial-gradient(circle at top left, 
+        rgba(0, 255, 136, 0.1) 0%, 
+        transparent 50%);
+    }
+
+    .skills-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .skill-category {
+      background: rgba(0, 255, 136, 0.05);
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      padding: var(--space-md);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .skill-category:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0, 255, 136, 0.2);
+      border-color: var(--color-green);
+    }
+
+    .skill-category h3 {
+      font-size: 1.2rem;
+      margin-bottom: var(--space-sm);
+      text-align: center;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 217, 163, 0.1));
+      color: var(--color-text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .skill-tag:hover {
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.3), rgba(0, 217, 163, 0.2));
+      transform: scale(1.05);
+    }
+
+    /* ===== PROJECTS SECTION ===== */
+    .projects {
+      background: var(--color-dark-secondary);
+    }
+
+    .projects-grid {
+      display: grid;
+      gap: var(--space-lg);
+      margin-top: var(--space-md);
+    }
+
+    .project-card {
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 217, 163, 0.03));
+      border: 2px solid rgba(0, 255, 136, 0.3);
+      padding: var(--space-md);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 50px rgba(0, 255, 136, 0.3);
+      border-color: var(--color-green);
+    }
+
+    .project-header {
+      margin-bottom: var(--space-sm);
+    }
+
+    .project-title {
+      font-size: 1.8rem;
+      color: var(--color-green);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-meta {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      font-style: italic;
+      margin-bottom: var(--space-sm);
+    }
+
+    .project-challenge {
+      background: rgba(0, 255, 136, 0.05);
+      padding: 1rem;
+      border-left: 3px solid var(--color-green);
+      margin: var(--space-sm) 0;
+      border-radius: 4px;
+    }
+
+    .project-challenge strong {
+      color: var(--color-green);
+      font-size: 0.95rem;
+    }
+
+    .project-challenge p {
+      color: var(--color-text);
+      margin-top: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: var(--space-sm) 0;
+    }
+
+    .tech-badge {
+      background: rgba(0, 255, 136, 0.15);
+      color: var(--color-green);
+      padding: 0.4rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.85rem;
+      border: 1px solid rgba(0, 255, 136, 0.3);
+    }
+
+    .project-card ul {
+      list-style: none;
+      margin-top: var(--space-sm);
+    }
+
+    .project-card li {
+      color: var(--color-text-muted);
+      padding-left: 1.5rem;
+      position: relative;
+      margin-bottom: 0.6rem;
+      line-height: 1.7;
+    }
+
+    .project-card li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--color-green);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .project-results {
+      background: rgba(0, 217, 163, 0.05);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: var(--space-sm);
+      border: 1px solid rgba(0, 255, 136, 0.2);
+    }
+
+    .project-results strong {
+      color: var(--color-green);
+      font-size: 0.95rem;
+    }
+
+    .project-results p {
+      color: var(--color-text);
+      margin-top: 0.5rem;
+    }
+
+    /* ===== ACHIEVEMENTS SECTION ===== */
+    .achievements {
+      background: radial-gradient(circle at bottom right, 
+        rgba(0, 255, 136, 0.1) 0%, 
+        transparent 50%);
+    }
+
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .achievement-card {
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 217, 163, 0.05));
+      border: 2px solid var(--color-green);
+      padding: var(--space-md);
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .achievement-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 40px rgba(0, 255, 136, 0.3);
+    }
+
+    .achievement-icon {
+      font-size: 3rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .achievement-title {
+      font-size: 1.2rem;
+      color: var(--color-green);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .achievement-org {
+      color: var(--color-text);
+      margin-bottom: 0.25rem;
+    }
+
+    .achievement-date {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    .achievement-card ul {
+      list-style: none;
+      margin-top: var(--space-sm);
+      text-align: left;
+    }
+
+    .achievement-card li {
+      color: var(--color-text-muted);
+      padding-left: 1.5rem;
+      position: relative;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .achievement-card li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--color-green);
+      font-weight: 700;
+    }
+
+    /* ===== EDUCATION SECTION ===== */
+    .education {
+      background: var(--color-dark-secondary);
+    }
+
+    .education-content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(0, 255, 136, 0.05);
+      border: 2px solid var(--color-green);
+      padding: var(--space-md);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .education-degree {
+      font-size: 1.5rem;
+      color: var(--color-green);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .education-school {
+      font-size: 1.2rem;
+      color: var(--color-text);
+      margin-bottom: var(--space-sm);
+    }
+
+    .certifications {
+      margin-top: var(--space-md);
+      text-align: left;
+    }
+
+    .certifications h3 {
+      text-align: center;
+      margin-bottom: var(--space-sm);
+    }
+
+    .certifications ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .certifications li {
+      color: var(--color-text-muted);
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .certifications li::before {
+      content: '🏆';
+      position: absolute;
+      left: 0;
+    }
+
+    /* ===== CONTACT SECTION ===== */
+    .contact {
+      background: radial-gradient(circle at center, 
+        rgba(0, 255, 136, 0.15) 0%, 
+        transparent 50%);
+    }
+
+    .contact-info {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact p {
+      font-size: 1.2rem;
+      color: var(--color-text);
+      margin-bottom: var(--space-sm);
+    }
+
+    .contact-cta {
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 217, 163, 0.05));
+      border: 2px solid var(--color-green);
+      padding: var(--space-md);
+      border-radius: 12px;
+      margin: var(--space-md) 0;
+    }
+
+    .contact-cta h3 {
+      text-align: center;
+      margin-bottom: var(--space-sm);
+    }
+
+    .contact-cta p {
+      font-size: 1rem;
+      color: var(--color-text-muted);
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: var(--space-md);
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+      color: var(--color-green);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      padding: 0.75rem;
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      border-radius: 8px;
+    }
+
+    .contact-link:hover {
+      background: rgba(0, 255, 136, 0.1);
+      border-color: var(--color-green);
+      transform: scale(1.02);
+    }
+
+    /* ===== BACK TO TOP ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--color-green);
+      color: var(--color-dark);
+      text-align: center;
+      line-height: 50px;
+      font-size: 1.5rem;
+      font-weight: 900;
+      border-radius: 50%;
+      text-decoration: none;
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: var(--space-md);
+      background: var(--color-dark);
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      section {
+        padding: var(--space-lg) var(--space-sm);
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .hero-profile {
+        width: 150px;
+        height: 150px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skills-categories {
+        grid-template-columns: 1fr;
+      }
+
+      .achievements-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .certifications ul {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero::before {
+        width: 300px;
+        height: 300px;
+      }
+
+      .hero-profile {
+        width: 120px;
+        height: 120px;
+      }
+
+      .back-to-top {
+        width: 45px;
+        height: 45px;
+        line-height: 45px;
+        bottom: 1rem;
+        right: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="top">
+    <div class="hero-content">
+      <img src="image/profile.jpg" alt="Joshua Gregorio - Full-Stack Web Developer" class="hero-profile">
+      <h1>Joshua Gregorio</h1>
+      <p class="hero-subtitle">Full-Stack Web Developer</p>
+      <p>Specializing in Enterprise Applications & Business Automation</p>
+      <p>I build production-ready web applications with secure authentication systems and automate complex business workflows—combining technical development expertise with practical integration skills.</p>
+      
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-number">3+</div>
+          <div class="stat-label">Full-Stack Projects</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">API Integrations</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">70%</div>
+          <div class="stat-label">Efficiency Gains</div>
+        </div>
+      </div>
+      
+      <p class="hero-location">📍 Santo Tomas, Batangas, Philippines | Remote Work Available</p>
+      <div class="cta-buttons">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-secondary">Free Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="about" id="about">
+    <div class="container">
+      <h2>About Me</h2>
+      <p class="section-subtitle">Technical skills meet business automation</p>
+      
+      <div class="about-content">
+        <div class="about-grid">
+          
+          <div class="about-text">
+            <p>I'm Joshua Gregorio, a Full-Stack Web Developer with a unique background in both enterprise application development and business automation. Currently in my final year of Information Systems at CARD-MRI Development Institute, I've built production-ready systems used by real organizations.</p>
+            
+            <p>Unlike typical developers, I have extensive experience with API integrations and workflow automation across 15+ platforms. I understand how systems communicate at the architectural level, which makes me exceptional at building applications that integrate seamlessly with existing business tools.</p>
+            
+            <p>My remote work experience as a Theft Investigator has sharpened my analytical thinking, attention to detail, and ability to deliver quality work under pressure. I'm a national IT Olympics competitor and active member of the Junior Philippine Computing Society.</p>
+          </div>
+
+          <div class="about-highlights">
+            <h3>Career Highlights</h3>
+            <ul>
+              <li>Built enterprise-grade student management system with JWT/RBAC authentication</li>
+              <li>National IT Olympics competitor (Web Design - Pure HTML/CSS)</li>
+              <li>Automated workflows reducing manual work by 70%</li>
+              <li>Integrated 15+ business platforms via REST APIs</li>
+              <li>PostgreSQL database design and optimization experience</li>
+              <li>Certified: TESDA NC II Computer Systems Servicing</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS SECTION -->
+  <section class="skills" id="skills">
+    <div class="container">
+      <h2>Technical Skills</h2>
+      <p class="section-subtitle">Full-stack development with automation expertise</p>
+      <div class="skills-categories">
+        
+        <div class="skill-category">
+          <h3>Frontend Development</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">React.js</span>
+            <span class="skill-tag">JavaScript (ES6+)</span>
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+            <span class="skill-tag">Tailwind CSS</span>
+            <span class="skill-tag">Vite</span>
+            <span class="skill-tag">Responsive Design</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>Backend Development</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Java Spring Boot</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">RESTful APIs</span>
+            <span class="skill-tag">Webhook Design</span>
+            <span class="skill-tag">HTTP Requests</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>Database & Security</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">pgAdmin</span>
+            <span class="skill-tag">JWT Authentication</span>
+            <span class="skill-tag">RBAC Systems</span>
+            <span class="skill-tag">Kali Linux</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>DevOps & Tools</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Git/GitHub</span>
+            <span class="skill-tag">VPS Deployment</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Postman</span>
+            <span class="skill-tag">Thunder Client</span>
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">Figma</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>Automation & Integration</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Zapier</span>
+            <span class="skill-tag">n8n</span>
+            <span class="skill-tag">Make.com</span>
+            <span class="skill-tag">OAuth/API Auth</span>
+            <span class="skill-tag">HubSpot</span>
+            <span class="skill-tag">monday.com</span>
+            <span class="skill-tag">Asana</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>Communication APIs</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Facebook Messenger</span>
+            <span class="skill-tag">Twilio (SMS)</span>
+            <span class="skill-tag">Gmail API</span>
+            <span class="skill-tag">Slack API</span>
+            <span class="skill-tag">Google Workspace</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section class="projects" id="projects">
+    <div class="container">
+      <h2>Featured Projects</h2>
+      <p class="section-subtitle">Production-ready applications and complex integrations</p>
+      <div class="projects-grid">
+        
+        <!-- OSAS-ISPIS (Lead Project) -->
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">OSAS-ISPIS: Enterprise Student Management System</h3>
+            <p class="project-meta">Capstone Project | CARD-MRI Development Institute | 2025</p>
+          </div>
+
+          <div class="project-challenge">
+            <strong>Challenge:</strong>
+            <p>The Office of Student Affairs needed a comprehensive digital system to manage student profiles, scholarship applications, and document workflows across three different user roles with strict access controls.</p>
+          </div>
+
+          <div class="tech-stack">
+            <span class="tech-badge">Spring Boot</span>
+            <span class="tech-badge">React.js</span>
+            <span class="tech-badge">PostgreSQL</span>
+            <span class="tech-badge">JWT</span>
+            <span class="tech-badge">RBAC</span>
+            <span class="tech-badge">REST API</span>
+          </div>
+
+          <p style="color: var(--color-text); margin: var(--space-sm) 0;"><strong>My Role:</strong> Full-stack developer responsible for complete system architecture, database design, API development, authentication implementation, and frontend interface.</p>
+
+          <ul>
+            <li>Architected three-tier RBAC system with JWT authentication for Admin, Staff, and Student roles</li>
+            <li>Designed and implemented PostgreSQL database schema with optimized queries and indexing</li>
+            <li>Built 25+ RESTful API endpoints with comprehensive validation and error handling</li>
+            <li>Developed React frontend with responsive design and real-time state management</li>
+            <li>Implemented secure file upload system for student documents and scholarship applications</li>
+            <li>Created webhook endpoints for real-time notifications and system integrations</li>
+            <li>Conducted API testing using Postman with 100+ test cases documented</li>
+          </ul>
+
+          <div class="project-results">
+            <strong>Results:</strong>
+            <p>Successfully deployed and currently used by CARD-MRI for scholarship program management. Reduced application processing time and improved data accuracy with digital workflows.</p>
+          </div>
+        </div>
+
+        <!-- IT Olympics Project -->
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">IT Olympics Competition Website</h3>
+            <p class="project-meta">National Competition | University of Makati | November 2025</p>
+          </div>
+
+          <div class="project-challenge">
+            <strong>Challenge:</strong>
+            <p>Design and build a fully functional, responsive website using only pure HTML and CSS under strict time constraints—no frameworks, no preprocessors, no AI assistance.</p>
+          </div>
+
+          <div class="tech-stack">
+            <span class="tech-badge">HTML5</span>
+            <span class="tech-badge">CSS3</span>
+            <span class="tech-badge">Responsive Design</span>
+            <span class="tech-badge">Flexbox</span>
+            <span class="tech-badge">Grid</span>
+          </div>
+
+          <p style="color: var(--color-text); margin: var(--space-sm) 0;"><strong>My Role:</strong> Solo developer competing at national level, demonstrating mastery of web fundamentals.</p>
+
+          <ul>
+            <li>Handcoded entire website structure without frameworks or libraries</li>
+            <li>Implemented mobile-first responsive design using CSS Flexbox and Grid</li>
+            <li>Created custom animations and transitions using pure CSS</li>
+            <li>Optimized performance with semantic HTML and efficient CSS selectors</li>
+            <li>Demonstrated deep understanding of web standards and accessibility</li>
+          </ul>
+
+          <div class="project-results">
+            <strong>Results:</strong>
+            <p>Competed successfully at national level, validating strong foundation in web development fundamentals and ability to deliver under pressure.</p>
+          </div>
+        </div>
+
+        <!-- n8n AI Messenger Bot -->
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">AI-Powered Messenger Bot with Google Gemini</h3>
+            <p class="project-meta">Custom Integration Project</p>
+          </div>
+
+          <div class="project-challenge">
+            <strong>Challenge:</strong>
+            <p>Create an intelligent chatbot that automatically responds to Facebook Messenger conversations with context-aware AI responses while maintaining conversation history and integrating with external data sources.</p>
+          </div>
+
+          <div class="tech-stack">
+            <span class="tech-badge">n8n</span>
+            <span class="tech-badge">Google Gemini AI</span>
+            <span class="tech-badge">Facebook Messenger API</span>
+            <span class="tech-badge">Webhooks</span>
+            <span class="tech-badge">Document Retrieval</span>
+          </div>
+
+          <p style="color: var(--color-text); margin: var(--space-sm) 0;"><strong>My Role:</strong> Workflow architect and integration developer responsible for complete bot logic and API connections.</p>
+
+          <ul>
+            <li>Designed webhook-based architecture for real-time message processing</li>
+            <li>Integrated Google Gemini AI for intelligent, context-aware responses</li>
+            <li>Implemented conversation memory system for contextual continuity</li>
+            <li>Connected document retrieval system for knowledge-based answers</li>
+            <li>Built message filtering logic to handle various conversation scenarios</li>
+            <li>Automated bi-directional communication between Facebook and AI engine</li>
+          </ul>
+
+          <div class="project-results">
+            <strong>Results:</strong>
+            <p>Fully functional AI chatbot capable of handling customer support inquiries, FAQ responses, and lead qualification automatically—demonstrating advanced API integration skills.</p>
+          </div>
+        </div>
+
+        <!-- Automation Integration Suite -->
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">Business Automation Integration Suite</h3>
+            <p class="project-meta">Multiple Client Projects</p>
+          </div>
+
+          <div class="project-challenge">
+            <strong>Challenge:</strong>
+            <p>Connect disparate business systems (CRM, project management, accounting, communication platforms) to eliminate manual data entry and create unified workflows across departments.</p>
+          </div>
+
+          <div class="tech-stack">
+            <span class="tech-badge">Zapier</span>
+            <span class="tech-badge">Make.com</span>
+            <span class="tech-badge">REST APIs</span>
+            <span class="tech-badge">OAuth</span>
+            <span class="tech-badge">Webhooks</span>
+            <span class="tech-badge">Multi-step Logic</span>
+          </div>
+
+          <p style="color: var(--color-text); margin: var(--space-sm) 0;"><strong>Key Integrations:</strong></p>
+
+          <ul>
+            <li><strong>Xero → Asana Accounting Workflow:</strong> Automated transaction export, CSV processing, and task creation with financial metadata</li>
+            <li><strong>Consultation Booking System:</strong> Google Forms → Calendar → Asana → SMS reminders via Twilio for zero missed appointments</li>
+            <li><strong>CRM Lead Management:</strong> 5-stage automation with conditional email sequences, file creation, and subtask generation</li>
+            <li><strong>Lead Enrichment Pipeline:</strong> Webhook-based authentication → domain search → company data extraction → Sheets enrichment</li>
+            <li><strong>Multi-Channel Notifications:</strong> Google Sheets monitoring with router logic for simultaneous Slack channel alerts</li>
+          </ul>
+
+          <div class="project-results">
+            <strong>Results:</strong>
+            <p>Reduced manual data entry by 70%, integrated 15+ business platforms, and saved clients an estimated 20+ hours per week in administrative work.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS SECTION -->
+  <section class="achievements" id="achievements">
+    <div class="container">
+      <h2>Achievements & Recognition</h2>
+      <div class="achievements-grid">
+        
+        <!-- IT Olympics -->
+        <div class="achievement-card">
+          <div class="achievement-icon">🏆</div>
+          <h3 class="achievement-title">IT Olympics – Web Design</h3>
+          <p class="achievement-org">University of Makati</p>
+          <p class="achievement-date">November 2025 | National Level Competition</p>
+          <ul>
+            <li>Competed in pure HTML/CSS web design challenge</li>
+            <li>No frameworks or AI tools—fully handcoded</li>
+            <li>Validated web development fundamentals</li>
+          </ul>
+        </div>
+
+        <!-- JPCS -->
+        <div class="achievement-card">
+          <div class="achievement-icon">👥</div>
+          <h3 class="achievement-title">Junior Philippine Computing Society</h3>
+          <p class="achievement-org">CARD-MRI Bay Chapter Member</p>
+          <p style="color: var(--color-text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Active member of national IT student organization under the Philippine Computer Society</p>
+        </div>
+
+        <!-- Capstone Success -->
+        <div class="achievement-card">
+          <div class="achievement-icon">💻</div>
+          <h3 class="achievement-title">Enterprise Application Deployment</h3>
+          <p class="achievement-org">OSAS-ISPIS Production System</p>
+          <ul>
+            <li>Built and deployed full-stack application</li>
+            <li>Currently used by organization</li>
+            <li>Managed complete SDLC independently</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION SECTION -->
+  <section class="education" id="education">
+    <div class="container">
+      <h2>Education & Certifications</h2>
+      <div class="education-content">
+        <h3 class="education-degree">Bachelor of Science in Information Systems</h3>
+        <p class="education-school">CARD-MRI Development Institute</p>
+        <p style="color: var(--color-text); font-style: italic;">Final Year | Capstone Project: OSAS-ISPIS (Enterprise Student Management System)</p>
+
+        <div class="certifications">
+          <h3>Professional Certifications</h3>
+          <ul>
+            <li>IT Olympics – Web Design Competition | University of Makati (2025)</li>
+            <li>NC II: Computer Systems Servicing (CSS) | TESDA (2025)</li>
+            <li>Python Basics | Huawei ICT Academy (2025)</li>
+            <li>Data Analytics Fundamentals | Refocus (2022)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2>Let's Build Something Together</h2>
+      <div class="contact-info">
+        <p>Available for full-stack development projects, API integrations, and automation implementations.</p>
+        
+        <div class="contact-cta">
+          <h3>What I Can Help With</h3>
+          <p>✓ Full-stack web application development<br>
+          ✓ Technical architecture consultation<br>
+          ✓ API integration and automation<br>
+          ✓ Database design and optimization<br>
+          ✓ Security implementation (JWT/RBAC)</p>
+        </div>
+
+        <div class="contact-links">
+          <a href="mailto:joshuagregorio412@gmail.com" class="contact-link">
+            <span>✉️</span>
+            <span>joshuagregorio412@gmail.com</span>
+          </a>
+          <a href="tel:+639605346005" class="contact-link">
+            <span>📞</span>
+            <span>+63 960 534 6005</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BACK TO TOP BUTTON -->
+  <a href="#top" class="back-to-top" aria-label="Back to top">↑</a>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Joshua Gregorio – Full-Stack Web Developer | Enterprise Applications & Business Automation</p>
+  </footer>
+
+</body>
+</html>
